@@ -21,7 +21,10 @@
         @forelse($students as $student)
             <li style="margin-bottom: 8px;">
                 <strong>{{ $student->name }}</strong> — {{ $student->email }}
-                <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline; margin-left: 10px;">
+                
+                <a href="{{ route('students.edit', $student->id) }}" style="margin-left: 10px;">Edit</a>
+
+                <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline; margin-left: 5px;">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
