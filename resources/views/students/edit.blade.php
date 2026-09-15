@@ -20,6 +20,18 @@
             <input type="email" name="email" value="{{ old('email', $student->email) }}" required>
         </div>
 
+        <div style="margin-bottom: 15px;">
+            <label>Assigned Course:</label><br>
+            <select name="course_id">
+                <option value="">-- No Course --</option>
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}" {{ old('course_id', $student->course_id) == $course->id ? 'selected' : '' }}>
+                        {{ $course->code }} - {{ $course->title }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit">Update Student</button>
         <a href="{{ route('students.index') }}" style="margin-left: 10px;">Cancel</a>
     </form>

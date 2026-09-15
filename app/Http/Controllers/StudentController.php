@@ -3,53 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $students = Student::all();
-        return view('students.index', compact('students'));
+        // with('course') eager loads the relationship to prevent N+1 queries
+        $students = Student::with('course')->get();
+        $courses = Course::all();
+
+        return view('students.index', compact('students', 'courses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email',
+        $validated = $request->validate([
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:students,email',
+            'course_id' => 'nullable|exists:courses,id',
         ]);
 
-        Student::create($request->only('name', 'email'));
+        Student::create($validated);
 
         return redirect()->route('students.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $student = Student::findOrFail($id);
-        return view('students.edit', compact('student'));
+        $courses = Course::all();
+
+        return view('students.edit', compact('student', 'courses'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $student = Student::findOrFail($id);
 
         $validated = $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email,' . $student->id,
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:students,email,' . $student->id,
+            'course_id' => 'nullable|exists:courses,id',
         ]);
 
         $student->update($validated);
@@ -57,9 +53,6 @@ class StudentController extends Controller
         return redirect()->route('students.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $student = Student::findOrFail($id);
