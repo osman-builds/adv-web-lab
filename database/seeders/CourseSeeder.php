@@ -13,9 +13,9 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
         $courses = [
-            ['code' => 'CSNB5123', 'title' => 'Mobile Application Development'],
-            ['code' => 'SWE3103',  'title' => 'Software Architecture'],
-            ['code' => 'DS2014',   'title' => 'Data Engineering & Analytics'],
+            ['code' => 'CSNB5123', 'name' => 'Mobile Application Development', 'credit_hours' => 3],
+            ['code' => 'SWE3103',  'name' => 'Software Architecture',          'credit_hours' => 3],
+            ['code' => 'DS2014',   'name' => 'Data Engineering & Analytics',    'credit_hours' => 3],
         ];
 
         foreach ($courses as $course) {

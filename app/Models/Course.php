@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['code', 'title', 'lecturer_id'];
+    use HasFactory;
+
+    protected $fillable = ['code', 'name', 'credit_hours', 'lecturer_id'];
 
     public function lecturer()
     {
@@ -15,6 +18,8 @@ class Course extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsToMany(Student::class, 'enrolments')
+                    ->withPivot('enrolled_at', 'grade')
+                    ->withTimestamps();
     }
 }

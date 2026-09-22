@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Student;
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,15 +11,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class StudentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'name'          => fake()->name(),
+            'matric_no'     => fake()->unique()->numerify('CS######'),
+            'email'         => fake()->unique()->safeEmail(),
+            'department_id' => Department::inRandomOrder()->first()?->id ?? 1,
         ];
     }
 }
