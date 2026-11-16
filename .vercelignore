@@ -1,0 +1,8 @@
+.env
+.env.example
+.git
+.github
+tests
+vendor
+node_modules
+postman
