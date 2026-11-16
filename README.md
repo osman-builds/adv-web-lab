@@ -15,7 +15,6 @@ This project serves as a student portal system providing both interactive web vi
 * **Aggregate Statistics**: Dedicated statistics endpoint (`/api/v1/courses-stats`) reporting total courses, total credit hours, and average credit hours.
 * **Academic Relations**: Relational data structures linking Students, Courses, Lecturers, Departments, and Enrolments with pivot metadata (grades, enrollment timestamps).
 * **API Authentication**: Laravel Sanctum token-based authentication via `/api/v1/login`.
-* **Postman Integration**: Bundled Postman v2.1 collection and environment under `postman/` for endpoint testing and lab verification.
 
 ---
 
@@ -103,13 +102,3 @@ To run API-specific tests:
 ```bash
 php artisan test --filter=CourseApiTest
 ```
-
----
-
-## Postman Integration
-
-Ready-to-use Postman assets are located in the `postman/` directory:
-
-* `postman/Student_Portal_Course_API.postman_collection.json`
-* `postman/Student_Portal_Local.postman_environment.json`
-* `postman/README.md` (Step-by-step import and screenshot guide)
